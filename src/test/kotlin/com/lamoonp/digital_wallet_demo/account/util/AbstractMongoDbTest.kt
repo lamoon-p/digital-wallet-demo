@@ -1,4 +1,4 @@
-package com.yourname.digitalwallet.account.util
+package com.lamoonp.digital_wallet_demo.account.util
 
 import com.lamoonp.digital_wallet_demo.account.model.Account
 import org.junit.jupiter.api.TestInstance
@@ -12,6 +12,7 @@ import org.testcontainers.junit.jupiter.Container
 import org.testcontainers.junit.jupiter.Testcontainers
 import org.testcontainers.utility.DockerImageName
 import reactor.test.StepVerifier
+import java.time.Duration
 import kotlin.test.BeforeTest
 
 @DataMongoTest
@@ -24,7 +25,7 @@ abstract class AbstractMongoDbTest {
         val mongoDBContainer: MongoDBContainer = MongoDBContainer(DockerImageName.parse("mongo:latest"))
             .apply {
                 withExposedPorts(27017)
-                withReuse(true)
+                withStartupTimeout(Duration.ofSeconds(60))
                 start()
             }
 
@@ -32,6 +33,7 @@ abstract class AbstractMongoDbTest {
         @DynamicPropertySource
         fun setProperties(registry: DynamicPropertyRegistry) {
             registry.add("spring.data.mongodb.uri") { mongoDBContainer.replicaSetUrl }
+            registry.add("spring.data.mongodb.host") { "digital-wallet-test" }
         }
     }
 
@@ -41,6 +43,7 @@ abstract class AbstractMongoDbTest {
     @BeforeTest
     fun cleanDatabase() {
         StepVerifier.create(mongodbTemplate.dropCollection(Account::class.java))
-            .verifyComplete()
+            .expectComplete()
+            .verify(Duration.ofSeconds(10))
     }
 }
