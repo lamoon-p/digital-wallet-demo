@@ -3,6 +3,7 @@ plugins {
 	kotlin("plugin.spring") version "1.9.25"
 	id("org.springframework.boot") version "3.3.6"
 	id("io.spring.dependency-management") version "1.1.6"
+	id("org.jetbrains.kotlinx.kover") version "0.9.0"
 }
 
 group = "com.lamoonp"
@@ -36,12 +37,14 @@ dependencies {
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	annotationProcessor("org.projectlombok:lombok")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.testcontainers:testcontainers:1.19.3")
 	testImplementation("org.testcontainers:mongodb:1.19.3")
 	testImplementation("org.testcontainers:junit-jupiter:1.19.3")
+	testImplementation("io.mockk:mockk:1.13.13")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
