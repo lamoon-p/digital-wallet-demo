@@ -1,4 +1,8 @@
 spring:
   data:
     mongodb:
+      auto-index-creation: true
       database: digital-wallet-test
+      authentication-database: admin
+      connection-timeout: 20000
+      socket-timeout: 40000
