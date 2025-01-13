@@ -1,6 +1,6 @@
-package com.lamoonp.digital_wallet_demo.account.config
+package com.lamoonp.digital_wallet_demo.accountservice.config
 
-import com.lamoonp.digital_wallet_demo.account.model.Account
+import com.lamoonp.digital_wallet_demo.accountservice.model.Account
 import jakarta.annotation.PostConstruct
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.domain.Sort

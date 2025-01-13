@@ -1,7 +1,7 @@
-package com.lamoonp.digital_wallet_demo.account.repository
+package com.lamoonp.digital_wallet_demo.accountservice.repository
 
-import com.lamoonp.digital_wallet_demo.account.model.Account
-import com.lamoonp.digital_wallet_demo.account.model.AccountStatus
+import com.lamoonp.digital_wallet_demo.accountservice.model.Account
+import com.lamoonp.digital_wallet_demo.accountservice.model.AccountStatus
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono

@@ -1,6 +1,6 @@
-package com.lamoonp.digital_wallet_demo.account.repository
+package com.lamoonp.digital_wallet_demo.accountservice.repository
 
-import com.lamoonp.digital_wallet_demo.account.model.Account
+import com.lamoonp.digital_wallet_demo.accountservice.model.Account
 import org.springframework.data.mongodb.core.FindAndModifyOptions
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate
 import org.springframework.data.mongodb.core.query.Criteria

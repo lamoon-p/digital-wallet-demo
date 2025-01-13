@@ -1,6 +1,6 @@
 package com.lamoonp.digital_wallet_demo.account.util
 
-import com.lamoonp.digital_wallet_demo.account.model.Account
+import com.lamoonp.digital_wallet_demo.accountservice.model.Account
 import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest

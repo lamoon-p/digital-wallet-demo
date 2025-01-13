@@ -1,4 +1,4 @@
-package com.lamoonp.digital_wallet_demo.account.config
+package com.lamoonp.digital_wallet_demo.accountservice.config
 
 import com.mongodb.reactivestreams.client.MongoClient
 import com.mongodb.reactivestreams.client.MongoClients

@@ -1,6 +1,6 @@
-package com.lamoonp.digital_wallet_demo.account.repository
+package com.lamoonp.digital_wallet_demo.accountservice.repository
 
-import com.lamoonp.digital_wallet_demo.account.model.Account
+import com.lamoonp.digital_wallet_demo.accountservice.model.Account
 import reactor.core.publisher.Mono
 import java.math.BigDecimal
 import java.util.UUID

@@ -1,4 +1,4 @@
-package com.lamoonp.digital_wallet_demo.account.model
+package com.lamoonp.digital_wallet_demo.accountservice.model
 
 enum class AccountStatus {
     ACTIVE,
