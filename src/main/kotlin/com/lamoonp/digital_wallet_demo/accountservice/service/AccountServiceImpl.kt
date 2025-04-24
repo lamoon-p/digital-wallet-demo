@@ -1,12 +1,16 @@
 package com.lamoonp.digital_wallet_demo.accountservice.service
 
+import com.lamoonp.digital_wallet_demo.accountservice.exception.AccountNotFoundException
+import com.lamoonp.digital_wallet_demo.accountservice.exception.InsufficientBalanceException
 import com.lamoonp.digital_wallet_demo.accountservice.exception.InvalidAccountDataException
+import com.lamoonp.digital_wallet_demo.accountservice.exception.InvalidAccountStatusException
 import com.lamoonp.digital_wallet_demo.accountservice.model.Account
 import com.lamoonp.digital_wallet_demo.accountservice.model.AccountStatus
 import com.lamoonp.digital_wallet_demo.accountservice.repository.AccountRepository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.math.BigDecimal
+import java.time.LocalDateTime
 import java.util.*
 
 class AccountServiceImpl(
@@ -70,11 +74,21 @@ class AccountServiceImpl(
     }
 
     override fun getAccount(accountId: UUID): Mono<Account> {
-        TODO("Not yet implemented")
+        return accountRepository.findByAccountId(accountId)
+            .switchIfEmpty(
+                Mono.error(
+                    AccountNotFoundException("Account not found with account ID: $accountId")
+                )
+            )
     }
 
     override fun getAccountByUserId(userId: String): Flux<Account> {
-        TODO("Not yet implemented")
+        return accountRepository.findByUserId(userId)
+            .switchIfEmpty(
+                Mono.error(
+                    AccountNotFoundException("Account not found with user ID: $userId")
+                )
+            )
     }
 
     override fun updateBalance(accountId: UUID, amount: BigDecimal): Mono<Account> {
