@@ -115,6 +115,30 @@ class AccountServiceImpl(
     }
 
     override fun deactivateAccount(accountId: UUID): Mono<Account> {
-        TODO("Not yet implemented")
+        return getAccount(accountId)
+            .flatMap { account ->
+                when (account.status) {
+                    AccountStatus.ACTIVE, AccountStatus.BLOCKED -> {
+                        accountRepository.save(
+                            account.copy(
+                                status = AccountStatus.INACTIVE,
+                                updatedAt = LocalDateTime.now(),
+                            )
+                        )
+                    }
+
+                    AccountStatus.INACTIVE -> {
+                        Mono.error(
+                            InvalidAccountStatusException("Account is already inactive")
+                        )
+                    }
+
+                    AccountStatus.CLOSED -> {
+                        Mono.error(
+                            InvalidAccountStatusException("Closed accounts cannot be modified")
+                        )
+                    }
+                }
+            }
     }
 }
