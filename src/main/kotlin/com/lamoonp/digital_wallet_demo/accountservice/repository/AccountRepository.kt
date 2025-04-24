@@ -7,7 +7,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.util.UUID
 
-interface AccountRepository : ReactiveMongoRepository<Account, String>, AccountRepositoryCustom {
+interface AccountRepository : ReactiveMongoRepository<Account, String> {
     fun findByUserId(userId: String): Flux<Account>
     fun findByAccountId(accountId: UUID): Mono<Account>
     fun findByStatus(status: AccountStatus): Flux<Account>
