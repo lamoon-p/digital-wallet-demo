@@ -250,15 +250,17 @@ class AccountServiceTest {
         }
 
         @Test
-        fun `should return empty flux when user has no accounts`() {
+        fun `should return exception when user has no accounts`() {
 
             val userId = "test-user"
 
             coEvery { accountRepository.findByUserId(userId) } returns Flux.empty()
 
             StepVerifier.create(accountService.getAccountByUserId(userId))
-                .expectSubscription() // or expectNextCount(0)
-                .verifyComplete()
+                .expectErrorMatches { error ->
+                    error is RuntimeException && error.message == "Account not found with user ID: $userId"
+                }
+                .verify()
         }
     }
 }
