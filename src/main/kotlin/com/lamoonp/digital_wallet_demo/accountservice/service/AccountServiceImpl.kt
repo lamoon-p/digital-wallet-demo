@@ -92,7 +92,26 @@ class AccountServiceImpl(
     }
 
     override fun updateBalance(accountId: UUID, amount: BigDecimal): Mono<Account> {
-        TODO("Not yet implemented")
+        return getAccount(accountId)
+            .filter { it.status == AccountStatus.ACTIVE }
+            .switchIfEmpty(
+                Mono.error(
+                    InvalidAccountStatusException("Cannot update balance for inactive account")
+                )
+            )
+            .flatMap { account ->
+                val newBalance = account.balance.add(amount)
+                if (newBalance < BigDecimal.ZERO) {
+                    Mono.error(
+                        InsufficientBalanceException("Insufficient balance for withdrawal")
+                    )
+                } else {
+                    accountRepository.save(account.copy(
+                        balance = newBalance,
+                        updatedAt = LocalDateTime.now()
+                    ))
+                }
+            }
     }
 
     override fun deactivateAccount(accountId: UUID): Mono<Account> {
